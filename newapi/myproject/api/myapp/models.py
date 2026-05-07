@@ -47,4 +47,6 @@ class Order(models.Model):
         return f"Order {self.order_id} by {self.user.username}"
 
 class OrderItem(models.Model):
+    pass
+    
     
