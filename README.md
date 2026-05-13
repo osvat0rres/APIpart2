@@ -17,3 +17,8 @@ To generate DR diagram
  python manage.py graph_models myapp > models.dot
 ```
 go to Graphviz and pase the text inside models.dot
+
+This command work to insert the values to the database
+```
+python manage.py populate_db
+``
