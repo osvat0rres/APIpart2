@@ -1,62 +1,69 @@
 from rest_framework import serializers
 from .models import Product, Order, OrderItem
 
+
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields =  (
+        fields = (
             'id',
             'name',
             'price',
-            'stock',   
+            'stock',
         )
-    
-    def validata_price(self, value):
+
+    def validate_price(self, value):
         if value <= 0:
             raise serializers.ValidationError(
-                "The price must be grated then 0."
+                "Price must be greater than 0."
             )
-        return value 
-
-#motification on 5/10   
+        return value
+    
 
 class OrderItemSerializer(serializers.ModelSerializer):
     product_name = serializers.CharField(source='product.name')
-    product_price = serializers.DecimalField(max_digits=10,  decimal_places=2,source='product.price')
-    
+    product_price = serializers.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        source='product.price')
+
     class Meta:
         model = OrderItem
-        fields = ('product_name',
-                  'product_price',
-                  'quantity', 
-                  'item_subtotal')
-          
+        fields = (
+            'product_name',
+            'product_price',
+            'quantity',
+            'item_subtotal'
+        )
+
+
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True, read_only=True)
-    total_price = serializers.SerializerMethodField()
-    
-    def get_total_price(slef, obj):
+    total_price = serializers.SerializerMethodField(method_name='total')
+
+    def total(self, obj):
         order_items = obj.items.all()
-        return sum(order_item.item_subtotal for order_item in order_items )
-    
+        return sum(order_item.item_subtotal for order_item in order_items)
+
     class Meta:
-        model =  Order
-        fields =('order_id', 
-                 'created_at', 
-                 'user', 
-                 'status', 
-                 'items', 
-                 'total_price',)
-     
-
-
-
-
-
-
-
-
-
+        model = Order
+        fields = (
+            'order_id',
+            'created_at',
+            'user',
+            'status',
+            'items',
+            'total_price',
+        )
+        
+    
+ #This is a generic serializer. Notes, it does not take a model as a paramter        
+class ProductInfoSerializer(serializers.Serializer):
+    #get all products,count of products, max price 
+    products = ProductSerializer(many=True)
+    count = serializers.IntegerField()
+    max_price = serializers.DecimalField()
+    
 
 
 
