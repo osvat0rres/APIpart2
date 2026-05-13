@@ -21,4 +21,4 @@ go to Graphviz and pase the text inside models.dot
 This command work to insert the values to the database
 ```
 python manage.py populate_db
-``
+```
