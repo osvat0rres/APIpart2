@@ -40,7 +40,7 @@ MIDDLEWARE = [
    'silk.middleware.SilkyMiddleWare',
 ]
 ```
-include in urls.py project level
+include in urls.py project level, then migrate
 ```
 path('silk/', include('silk.urls', namespace='silk'))
 ```
