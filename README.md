@@ -1,7 +1,6 @@
 # APIpart2
 curretly working....
 
-#Part number 1 (5/7/2015)
 I created a the tables (models.py )and insert the data from populated_db.py 
 To view the information inside the the tables: 
 ```
@@ -22,3 +21,7 @@ This command work to insert the values to the database
 ```
 python manage.py populate_db
 ```
+
+Install Django-Silk packages
+This works as a live profiling and inspection tool for the djnago restframework. Silk intercepst and stores HTTP 
+request and database queries before presenting them in a user interface for futher inspection
