@@ -39,5 +39,8 @@ MIDDLEWARE = [
    ...
    'silk.middleware.SilkyMiddleWare',
 ]
-
+```
+include in urls.py project level
+```
+path('silk/', include('silk.urls', namespace='silk'))
 ```
