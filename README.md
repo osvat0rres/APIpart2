@@ -25,3 +25,19 @@ python manage.py populate_db
 Install Django-Silk packages
 This works as a live profiling and inspection tool for the djnago restframework. Silk intercepst and stores HTTP 
 request and database queries before presenting them in a user interface for futher inspection
+
+```
+pip install django-silk
+```
+On in settings.py
+```
+INSTALLED_APP = [
+   ...
+    'silk',
+]
+MIDDLEWARE = [
+   ...
+   'silk.middleware.SilkyMiddleWare',
+]
+
+```
