@@ -9,7 +9,11 @@ from rest_framework import generics
 # Create your views here.
 
 class ProductListAPIView(generics.ListAPIView):
-    queryset = Product.objects.all()
+    #Only products that are in stock
+    #queryset = Product.objects.filter(stock__gt=0)
+    #Producst that are out of stock
+    #queryset = Product.objects.exclude(stock__gt=0)
+    quetyset = Product.objects.all()
     serializer_class = ProductSerializer
     
 
@@ -25,6 +29,8 @@ class OrderListAPIView(generics.ListAPIView):
     serializer_class = OrderSerializer
     
  
+
+
 
 @api_view()
 def product_info(request):
