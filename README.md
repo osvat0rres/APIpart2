@@ -44,3 +44,6 @@ include in urls.py project level, then migrate
 ```
 path('silk/', include('silk.urls', namespace='silk'))
 ```
+Superuser
+username: username
+password: password
