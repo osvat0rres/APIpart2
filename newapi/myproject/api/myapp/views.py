@@ -13,26 +13,35 @@ class ProductListAPIView(generics.ListAPIView):
     #queryset = Product.objects.filter(stock__gt=0)
     #Producst that are out of stock
     #queryset = Product.objects.exclude(stock__gt=0)
-    quetyset = Product.objects.all()
+    queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    
 
 
 class ProductDetailAPIView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     
+    #This is used when the url parameter is different from the default 'pk'
+    #lookup_url_kwarg = 'product_id'    
 
 
 class OrderListAPIView(generics.ListAPIView):
     queryset = Order.objects.prefetch_related('items__product')
     serializer_class = OrderSerializer
     
- 
 
+class UserOrderListAPIView(generics.ListAPIView):
+    queryset = Order.objects.prefetch_related('items__product')
+    serializer_class = OrderSerializer
+    
+    
+        #dynamically filter orders
+    def get_queryset(self):
+        user = self.request.user
+        qs = super().get_queryset()
+        return qs.filter(user=user)
 
-
-@api_view()
+@api_view(['GET'])
 def product_info(request):
     products = Product.objects.all()
     serializer = ProductInfoSerializer({
