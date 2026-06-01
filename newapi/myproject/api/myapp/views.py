@@ -33,6 +33,8 @@ class OrderListAPIView(generics.ListAPIView):
 class UserOrderListAPIView(generics.ListAPIView):
     queryset = Order.objects.prefetch_related('items__product')
     serializer_class = OrderSerializer
+    #only authenticated users can access their orders
+    permission_classes =[IsAuthenticated]
     
     
         #dynamically filter orders
