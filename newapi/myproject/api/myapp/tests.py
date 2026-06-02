@@ -8,10 +8,10 @@ class UserOrderTestCase(TestCase):
     def setUp(self):
         user1 = User.objects.create_user(username='user1', password='test')
         user2 = User.objects.create_user(username='user2', password='test')
-        Order.objects.create(user=user1, total_amount='44.44')
-        Order.objects.create(user=user1, total_amount='66.44')
-        Order.objects.create(user=user2, total_amount='22.44')
-        Order.objects.create(user=user2, total_amount='11.44')
+        Order.objects.create(user=user1)
+        Order.objects.create(user=user1)
+        Order.objects.create(user=user2)
+        Order.objects.create(user=user2)
         
     def test_user_order_endpoint_retrieves_only_authenticated_user_orders(self):
         user = User.objects.get(username='user1')
