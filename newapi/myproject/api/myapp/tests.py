@@ -17,7 +17,8 @@ class UserOrderTestCase(TestCase):
         user = User.objects.get(username='user2')
         self.client.force_login(user)
         response = self.client.get(reverse('user-orders'))
-        
+
+        # You can also write a test with only the status number
         assert response.status_code == status.HTTP_200_OK
         orders = response.json()
         self.assertTrue(all(order['user'] == user.id for order in orders))
