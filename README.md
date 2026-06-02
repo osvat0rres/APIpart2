@@ -47,3 +47,8 @@ path('silk/', include('silk.urls', namespace='silk'))
 Superuser
 username: username
 password: password
+
+To run the test created, on terminal
+```
+python manage.py test
+```
