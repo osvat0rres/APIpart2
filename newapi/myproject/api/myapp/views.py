@@ -17,6 +17,12 @@ class ProductListAPIView(generics.ListAPIView):
     #queryset = Product.objects.exclude(stock__gt=0)
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    
+    
+class ProductCreateAPIView(generics.CreateAPIView):
+    Model = Product
+    serializer_class = ProductSerializer
+
 
 
 class ProductDetailAPIView(generics.RetrieveAPIView):
@@ -37,8 +43,7 @@ class UserOrderListAPIView(generics.ListAPIView):
     serializer_class = OrderSerializer
     #Only authenticated users can access their orders
     permission_classes = [IsAuthenticated]
-    
-    
+
         #dynamically filter orders
     def get_queryset(self):
         user = self.request.user
@@ -56,3 +61,4 @@ class ProductInfoAPIView(APIView):
         })
         return  Response(serializer.data)
         
+
