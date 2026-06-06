@@ -10,7 +10,7 @@ from rest_framework.views import APIView
 
 # Create your views here.
 
-class ProductListAPIView(generics.ListAPIView):
+class ProductListCreateAPIView(generics.ListCreateAPIView):
     #Only products that are in stock
     #queryset = Product.objects.filter(stock__gt=0)
     #Producst that are out of stock
@@ -22,13 +22,14 @@ class ProductListAPIView(generics.ListAPIView):
 class ProductCreateAPIView(generics.CreateAPIView):
     Model = Product
     serializer_class = ProductSerializer
-
-
+    
+    def create(self, request, *args, **kwargs):
+        print(request.data)
+        return super().create(request, *args, **kwargs)
 
 class ProductDetailAPIView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    
     #This is used when the url parameter is different from the default 'pk'
     #lookup_url_kwarg = 'product_id'    
 
