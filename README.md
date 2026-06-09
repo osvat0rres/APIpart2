@@ -53,4 +53,5 @@ To run the test created, on terminal
 python manage.py test
 ```
 Install REST Client in VS code extension.
-This work like insognia where you can send, cancel, and rerun HTTP request all inside VS code
+This work like insognia where you can send, cancel, and rerun HTTP request all inside VS code. 
+Inside the api.http file, place the url of the view you want with the method and add the HTTP version and send request 
