@@ -41,7 +41,7 @@ class Order(models.Model):
                               choices=StatusChoises.choices, 
                               default=StatusChoises.PENDING )
     
-    products = models.ManyToManyField(Product, through="Orderite", related_name="orders")
+    products = models.ManyToManyField(Product, through="Orderitem", related_name="orders")
     
     def __str__(self):
         return f"Order {self.order_id} by {self.user.username}"
