@@ -45,7 +45,7 @@ include in urls.py project level, then migrate
 path('silk/', include('silk.urls', namespace='silk'))
 ```
 Superuser
-username: username
+username: brandon
 password: password
 
 To run the test created, on terminal
