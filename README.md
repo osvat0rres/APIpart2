@@ -60,4 +60,8 @@ This command is to install Django web Token (JWT)
 ```
  pip install djangorestframework-simplejwt
 ```
+need to install OpenAPI sopurt usning drf-spectacular
+```
+ pip install drf-spectacular
+```
 
