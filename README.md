@@ -64,4 +64,9 @@ need to install OpenAPI sopurt usning drf-spectacular
 ```
  pip install drf-spectacular
 ```
+After you install it, add the app to setting.py and REST_FRAMEWORK with the SPECTACULAR_SETTINGS.
+Run this cammand
+```
+python manage.py spectacular --color --file schema.yml
+```
 
