@@ -36,12 +36,16 @@ class ProductCreateAPIView(generics.CreateAPIView):
         print(request.data) 
         return super().create(request, *args, **kwargs)
 
-class ProductDetailAPIView(generics.RetrieveAPIView):
+class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     #This is used when the url parameter is different from the default 'pk'
-    #lookup_url_kwarg = 'product_id'    
-
+    #lookup_url_kwarg = 'product_id'   
+     def get_permissions(self):
+        self.permission_classes = [AllowAny]
+        if self.request.method in ['PUT','PATCH', 'DELETE']:
+            self.permission_classes = [IsAdminUser]
+        return super().get_permissions()
 
 class OrderListAPIView(generics.ListAPIView):
     queryset = Order.objects.prefetch_related('items__product')
