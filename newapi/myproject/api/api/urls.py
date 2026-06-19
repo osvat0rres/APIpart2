@@ -25,6 +25,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('myapp.urls')),
     path('silk/',include('silk.urls', namespace='silk')),
+    #This end point will show you the toke from the user
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    #This endpoint will show you the refresh token form the user
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
