@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     'silk',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -124,10 +125,22 @@ STATIC_URL = 'static/'
 AUTH_USER_MODEL = "myapp.User"
 
 REST_FRAMEWORK = {
+    #This is for authentication with JSON web token (JWT)
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-    ]
+    ],
+    #This is for drf-spectacular 
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'E-Commerce API',
+    'DESCRIPTION': 'A simple Products and Order API',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
+
 
 
