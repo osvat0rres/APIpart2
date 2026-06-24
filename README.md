@@ -69,4 +69,9 @@ Run this cammand
 ```
 python manage.py spectacular --color --file schema.yml
 ```
-
+Filtering 
+Add in install apps
+```
+'django_filters'
+'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+```
