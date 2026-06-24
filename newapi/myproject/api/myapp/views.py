@@ -22,6 +22,10 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+      
+    #For the fields that you want to filter
+    filterset_class = ProductFilter
+
     def get_permissions(self):
         self.permission_classes = [AllowAny]
         if self.request.method == "POST":
