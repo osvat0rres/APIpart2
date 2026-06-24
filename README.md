@@ -75,3 +75,6 @@ Add in install apps
 'django_filters'
 'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 ```
+```
+pip install django-filter
+```
