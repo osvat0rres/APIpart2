@@ -10,7 +10,9 @@ from rest_framework.permissions import  (
     AllowAny,
 )
 from rest_framework.views import APIView
-
+from myapp.filters import ProductFilter, InStockFilterBackend
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 # Create your views here.
 
@@ -21,10 +23,19 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
     #queryset = Product.objects.exclude(stock__gt=0)
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-
-      
-    #For the fields that you want to filter
+    
+    #For the fields that you want to filter (search)
     filterset_class = ProductFilter
+    #This allows you to search from fields specify in the search_fileds (or accross many fileds from the models)
+    filter_backends = [
+        DjangoFilterBackend, 
+        filters.SearchFilter,
+        filters.OrderingFilter,
+        InStockFilterBackend,
+        ]
+    #If you want an exact match just add a '=' to the item ('=name')
+    search_fields = ['name','description']
+    ordering_filds = ['name','price','stock']
 
     def get_permissions(self):
         self.permission_classes = [AllowAny]
@@ -45,7 +56,7 @@ class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProductSerializer
     #This is used when the url parameter is different from the default 'pk'
     #lookup_url_kwarg = 'product_id'   
-     def get_permissions(self):
+    def get_permissions(self):
         self.permission_classes = [AllowAny]
         if self.request.method in ['PUT','PATCH', 'DELETE']:
             self.permission_classes = [IsAdminUser]
@@ -79,5 +90,7 @@ class ProductInfoAPIView(APIView):
         })
         return  Response(serializer.data)
         
+
+
 
 
