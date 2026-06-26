@@ -78,3 +78,11 @@ Add in install apps
 ```
 pip install django-filter
 ```
+To add pagination
+Just set the number of pages to any number
+```
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100
+}
+```
