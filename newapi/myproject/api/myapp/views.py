@@ -54,7 +54,8 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
         if self.request.method == "POST":
             self.permission_classes = [IsAdminUser]
         return super().get_permissions()
-    
+
+#Create a products
 class ProductCreateAPIView(generics.CreateAPIView):
     Model = Product
     serializer_class = ProductSerializer
@@ -79,6 +80,7 @@ class OrderListAPIView(generics.ListAPIView):
     serializer_class = OrderSerializer
     
 
+#List order information
 class UserOrderListAPIView(generics.ListAPIView):
     queryset = Order.objects.prefetch_related('items__product')
     serializer_class = OrderSerializer
@@ -90,8 +92,8 @@ class UserOrderListAPIView(generics.ListAPIView):
         user = self.request.user
         qs = super().get_queryset()
         return qs.filter(user=user)
-    
-    
+
+# Information about the products
 class ProductInfoAPIView(APIView):
     def get(self,request):
         products = Product.objects.all()
