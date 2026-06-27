@@ -14,6 +14,7 @@ from myapp.filters import ProductFilter, InStockFilterBackend
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework.pagination import PageNumberPagination ,LimitOffsetPagination 
+from rest_framework import viewsets
 
 # Create your views here.
 
@@ -54,8 +55,7 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
         if self.request.method == "POST":
             self.permission_classes = [IsAdminUser]
         return super().get_permissions()
-
-#Create a products
+    
 class ProductCreateAPIView(generics.CreateAPIView):
     Model = Product
     serializer_class = ProductSerializer
@@ -74,26 +74,34 @@ class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         if self.request.method in ['PUT','PATCH', 'DELETE']:
             self.permission_classes = [IsAdminUser]
         return super().get_permissions()
-
-class OrderListAPIView(generics.ListAPIView):
-    queryset = Order.objects.prefetch_related('items__product')
-    serializer_class = OrderSerializer
     
 
-#List order information
-class UserOrderListAPIView(generics.ListAPIView):
-    queryset = Order.objects.prefetch_related('items__product')
+class OrderListAPIView(viewsets.ModelViewSet):
+    #This tell teh view wihich object to work with
+    queryset = Order.objects.prefetch_related('items_products')
+    #This tells DRF how to convert Order objects into JSON and hoe to validate incoming JSON
     serializer_class = OrderSerializer
-    #Only authenticated users can access their orders
-    permission_classes = [IsAuthenticated]
+    #This allow any user to view the order
+    permission_classes = [AllowAny]
 
-        #dynamically filter orders
-    def get_queryset(self):
-        user = self.request.user
-        qs = super().get_queryset()
-        return qs.filter(user=user)
+# class OrderListAPIView(generics.ListAPIView):
+#     queryset = Order.objects.prefetch_related('items__product')
+#     serializer_class = OrderSerializer
+    
 
-# Information about the products
+# class UserOrderListAPIView(generics.ListAPIView):
+#     queryset = Order.objects.prefetch_related('items__product')
+#     serializer_class = OrderSerializer
+#     #Only authenticated users can access their orders
+#     permission_classes = [IsAuthenticated]
+
+#         #dynamically filter orders
+#     def get_queryset(self):
+#         user = self.request.user
+#         qs = super().get_queryset()
+#         return qs.filter(user=user)
+    
+    
 class ProductInfoAPIView(APIView):
     def get(self,request):
         products = Product.objects.all()
@@ -104,6 +112,7 @@ class ProductInfoAPIView(APIView):
         })
         return  Response(serializer.data)
         
+
 
 
 
