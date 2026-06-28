@@ -76,12 +76,13 @@ class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         return super().get_permissions()
     
 
-class OrderListAPIView(viewsets.ModelViewSet):
-    #This tell teh view wihich object to work with
-    queryset = Order.objects.prefetch_related('items_products')
-    #This tells DRF how to convert Order objects into JSON and hoe to validate incoming JSON
+
+class OrderViewSet(viewsets.ModelViewSet):
+    #This tell the view which object to work with
+    queryset = Order.objects.prefetch_related('items__product')
+    #This tell DRF how to convert Order objects into JSON and how to validate incoming JSON
     serializer_class = OrderSerializer
-    #This allow any user to view the order
+    #This will tell who is allows to view the order
     permission_classes = [AllowAny]
 
 # class OrderListAPIView(generics.ListAPIView):
