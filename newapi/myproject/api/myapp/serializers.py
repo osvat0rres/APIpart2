@@ -38,6 +38,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
+    order_id = serializers.UUIDField(read_only=True)
     items = OrderItemSerializer(many=True, read_only=True)
     total_price = serializers.SerializerMethodField(method_name='total')
 
@@ -62,8 +63,14 @@ class ProductInfoSerializer(serializers.Serializer):
     #get all products,count of products, max price 
     products = ProductSerializer(many=True)
     count = serializers.IntegerField()
-    max_price = serializers.DecimalField()
+    max_price = serializers.DecimalField(max_digits=10, decimal_places=2)
     
+
+
+
+
+
+
 
 
 
