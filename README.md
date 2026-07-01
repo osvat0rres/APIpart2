@@ -87,3 +87,10 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 100
 }
 ```
+install isort
+The isort extension in VS code autematically organizies Python imports for better readability and consistency
+```
+ isort .\myapp\views.py      
+```
+
+
