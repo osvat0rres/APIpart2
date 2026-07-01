@@ -92,5 +92,6 @@ The isort extension in VS code autematically organizies Python imports for bette
 ```
  isort .\myapp\views.py      
 ```
+vedio 22
 
 
