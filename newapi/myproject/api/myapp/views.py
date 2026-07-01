@@ -1,20 +1,20 @@
-from myapp.serializers import ProductSerializer, OrderSerializer, ProductInfoSerializer
-from myapp.models import Product, Order, OrderItem
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
 from django.db.models import Max
-from rest_framework import generics
-from rest_framework.permissions import  (
-    IsAuthenticated, 
-    IsAdminUser,
-    AllowAny,
-)
-from rest_framework.views import APIView
-from myapp.filters import ProductFilter, InStockFilterBackend
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters
-from rest_framework.pagination import PageNumberPagination ,LimitOffsetPagination 
-from rest_framework import viewsets
+from rest_framework import filters, generics, viewsets
+from rest_framework.decorators import api_view
+from rest_framework.pagination import (LimitOffsetPagination,
+                                       PageNumberPagination)
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.decorators import action
+
+from myapp.filters import InStockFilterBackend, OrderFilter, ProductFilter
+from myapp.models import Order, OrderItem, Product
+from myapp.serializers import (OrderSerializer, ProductInfoSerializer,
+                               ProductSerializer)
+
+
 
 # Create your views here.
 
@@ -84,10 +84,17 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     #This will tell who is allows to view the order
     permission_classes = [AllowAny]
+    pagination_class = None
+    filterset_class = OrderFilter
+    filter_backends = [DjangoFilterBackend]
+    
+    @action(detail=False, methods=['get'], url_path='user-orders', permission_classes=[IsAuthenticated])
+    def user_orders(self,request):
+        orders = self.get_queryset().filter(user=request.user)
+        serializer = self.get_serializer(orders, many=True)
+        return Response(serializer.data)
+    
 
-# class OrderListAPIView(generics.ListAPIView):
-#     queryset = Order.objects.prefetch_related('items__product')
-#     serializer_class = OrderSerializer
     
 
 # class UserOrderListAPIView(generics.ListAPIView):
@@ -113,7 +120,6 @@ class ProductInfoAPIView(APIView):
         })
         return  Response(serializer.data)
         
-
 
 
 
