@@ -1,5 +1,5 @@
 import django_filters
-from myapp.models import Product
+from myapp.models import Product, Order
 from rest_framework import filters
 
 
@@ -20,4 +20,15 @@ class ProductFilter(django_filters.FilterSet):
         fields = {
             'name' : ['exact', 'contains'],
             'price' : ['exact','lt', 'gt', 'range']
+        }
+        
+#This filter is uses to lookm for orders in status and when ut was created
+class OrderFilter(django_filters.FilterSet):
+    #This will allow you to filter by the date the order was created
+    created_at = django_filters.DateFilter(field_name='created_at__date')
+    class Meta:
+        model = Order
+        fields = {
+            'status' : ['exact', 'contains'],
+            'created_at' : ['exact', 'gt', 'range']
         }
