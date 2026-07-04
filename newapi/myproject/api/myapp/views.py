@@ -88,6 +88,16 @@ class OrderViewSet(viewsets.ModelViewSet):
     filterset_class = OrderFilter
     filter_backends = [DjangoFilterBackend]
     
+    #If you are a super user, all the orders will be share but if you are a normal user, you will only see your orders
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if not self.request.user.is_staff:
+            qs = qs.filter(user=self.request.user)
+        return qs
+            
+    
+    
+    
     @action(detail=False, methods=['get'], url_path='user-orders', permission_classes=[IsAuthenticated])
     def user_orders(self,request):
         orders = self.get_queryset().filter(user=request.user)
@@ -120,6 +130,8 @@ class ProductInfoAPIView(APIView):
         })
         return  Response(serializer.data)
         
+
+
 
 
 
