@@ -96,5 +96,8 @@ to install Pillow
 ```
 pipenv install Pillow
 ```
-
+or 
+```
+ python -m pip install Pillow
+```
 
