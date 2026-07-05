@@ -100,4 +100,5 @@ or
 ```
  python -m pip install Pillow
 ```
+vedio 22
 
