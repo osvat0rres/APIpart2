@@ -83,7 +83,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     #This tell DRF how to convert Order objects into JSON and how to validate incoming JSON
     serializer_class = OrderSerializer
     #This will tell who is allows to view the order
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     pagination_class = None
     filterset_class = OrderFilter
     filter_backends = [DjangoFilterBackend]
