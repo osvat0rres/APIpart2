@@ -98,11 +98,11 @@ class OrderViewSet(viewsets.ModelViewSet):
     
     
     
-    @action(detail=False, methods=['get'], url_path='user-orders', permission_classes=[IsAuthenticated])
-    def user_orders(self,request):
-        orders = self.get_queryset().filter(user=request.user)
-        serializer = self.get_serializer(orders, many=True)
-        return Response(serializer.data)
+    # @action(detail=False, methods=['get'], url_path='user-orders', permission_classes=[IsAuthenticated])
+    # def user_orders(self,request):
+    #     orders = self.get_queryset().filter(user=request.user)
+    #     serializer = self.get_serializer(orders, many=True)
+    #     return Response(serializer.data)
     
 
     
