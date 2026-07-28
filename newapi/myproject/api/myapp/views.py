@@ -96,14 +96,6 @@ class OrderViewSet(viewsets.ModelViewSet):
         return qs
             
     
-    
-    
-    # @action(detail=False, methods=['get'], url_path='user-orders', permission_classes=[IsAuthenticated])
-    # def user_orders(self,request):
-    #     orders = self.get_queryset().filter(user=request.user)
-    #     serializer = self.get_serializer(orders, many=True)
-    #     return Response(serializer.data)
-    #I added this comments just to test it out
 
     
 
@@ -130,9 +122,5 @@ class ProductInfoAPIView(APIView):
         })
         return  Response(serializer.data)
         
-
-
-
-
 
 
