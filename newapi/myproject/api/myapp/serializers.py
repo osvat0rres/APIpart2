@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Product, Order, OrderItem
 
 
+#This serializer is used to serilaize the Product model
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
@@ -11,7 +12,7 @@ class ProductSerializer(serializers.ModelSerializer):
             'price',
             'stock',
         )
-
+    #When created a new product, this will validate the price to make sure it is greater then 0
     def validate_price(self, value):
         if value <= 0:
             raise serializers.ValidationError(
@@ -35,6 +36,36 @@ class OrderItemSerializer(serializers.ModelSerializer):
             'quantity',
             'item_subtotal'
         )
+        
+class OrderCreateSerializer(serializers.ModelSerializer):
+    class OrderItemCreateSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = OrderItem
+            fields = (
+                'product',
+                'quantity',
+            )
+    items = OrderItemCreateSerializer(many=True)
+    def create(self, validated_data):
+        orderitem_data = validated_data.pop('items')
+        order = Order.objects.create(**validated_data)
+        
+        for item in orderitem_data:
+            OrderItem.objects.create(order=order, **item)
+            
+        return order
+                
+    class Meta: 
+        model = Order
+        fields = ( 
+            'order_id',
+            'user',
+            'status', 
+            'items',
+        )
+        extra_kwargs = {
+            'user': {'read_only': True}, 
+        }
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -52,7 +83,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'order_id',
             'created_at',
             'user',
-            'status',
+            'status', 
             'items',
             'total_price',
         )
@@ -65,15 +96,5 @@ class ProductInfoSerializer(serializers.Serializer):
     count = serializers.IntegerField()
     max_price = serializers.DecimalField(max_digits=10, decimal_places=2)
     
-
-
-
-
-
-
-
-
-
-
 
 
