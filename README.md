@@ -104,6 +104,6 @@ to install django-filter
 ```
 pip install django-filter 
 ```
+video 25
 
-vedio number 24
 
