@@ -104,6 +104,11 @@ to install django-filter
 ```
 pip install django-filter 
 ```
+To install rest_framework_simplejwt
+```
+pip install djangorestframework-simplejwt
+```
 video 25
+
 
 
