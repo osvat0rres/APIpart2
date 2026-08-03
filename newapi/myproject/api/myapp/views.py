@@ -93,7 +93,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     
     def get_serializer_class(self):
         #can also check for if POST: If self.request.method == 'POST'
-        if self.action == 'create':
+        if self.action == 'create' or self.action == 'update':
             return OrderCreateSerializer
         return super().get_serializer_class()
     
@@ -131,6 +131,10 @@ class ProductInfoAPIView(APIView):
         })
         return  Response(serializer.data)
         
+
+
+
+
 
 
 
