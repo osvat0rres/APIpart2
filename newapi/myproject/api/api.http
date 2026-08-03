@@ -36,17 +36,15 @@ GET http://localhost:8000/user-orders/ HTTP/1.1
 
 ###
 GET http://localhost:8000/orders/ HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg1MjYyOTY2LCJpYXQiOjE3ODUyNjI2NjYsImp0aSI6ImY3ZTAwZWFiMGZjNDQyNzE4MjRiNWFjNDQxMmRlNGUxIiwidXNlcl9pZCI6IjEifQ.gdcPC9RcW3sMDt2w4MNW_y2Gcms20DfCHF6W-lbmIUU
+Authorization: Bearer 3cf9580f-cf96-4f00-897e-8ac0c5cc10df
 
 
 ###
-POST http://localhost:8000/orders/ HTTP/1.1
+POST http://localhost:8000/orders HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg1NTEwNzAwLCJpYXQiOjE3ODU1MTA0MDAsImp0aSI6IjIyYTg4NjliMzQ4MTRlOTFiM2MzMDAzZjJiZmQ0ZmExIiwidXNlcl9pZCI6IjEifQ.6CtLCp3RswEoSWaRE0SCh588cWVP0Wxm74YqNuEJvO8
-
-{
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg1NzcyODYzLCJpYXQiOjE3ODU3NzI1NjMsImp0aSI6Ijc4Y2ZiM2JjNzUzMjRmZWI4MjMxOTNmN2NmZTJhNGYxIiwidXNlcl9pZCI6IjEifQ.9RANNUIbg4J5B1gcbZ0uj_5BFV1nhxVxOP5fefVroik
 	"status": "Pending",
-	"user":2,
+	"user":2, 
 	"items": [
 		{
 			"product": 1,
@@ -58,7 +56,3 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 		}
 	]
 }
-
-
-###
-GET http://localhost:8000/orders/ HTTP/1.1
