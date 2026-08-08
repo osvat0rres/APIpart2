@@ -1,6 +1,17 @@
 from django.db import transaction
 from rest_framework import serializers
-from .models import Product, Order, OrderItem
+from .models import Product, Order, OrderItem, User
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'username',
+            'email',
+            'is_staff'
+        )
+        
 
 
 #This serializer is used to serilaize the Product model
@@ -121,5 +132,6 @@ class ProductInfoSerializer(serializers.Serializer):
     count = serializers.IntegerField()
     max_price = serializers.DecimalField(max_digits=10, decimal_places=2)
     
+
 
 
