@@ -34,8 +34,8 @@ class Order(models.Model):
         
         #this gives a ID to the order
     order_id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    #This creates the time when the order is created
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'orders')
+    #This creates the time when the order is created 
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, 
                               choices=StatusChoises.choices, 
@@ -58,4 +58,5 @@ class OrderItem(models.Model):
     
     def __str__(self):
         return f"{self.quantity} x {self.product.name} in Order{self.order.order_id}"
+
 
