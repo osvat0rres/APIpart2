@@ -10,9 +10,9 @@ from rest_framework.views import APIView
 from rest_framework.decorators import action
 
 from myapp.filters import InStockFilterBackend, OrderFilter, ProductFilter
-from myapp.models import Order, OrderItem, Product
+from myapp.models import Order, OrderItem, Product, User
 from myapp.serializers import (OrderSerializer, ProductInfoSerializer,
-                               ProductSerializer, OrderCreateSerializer)
+                               ProductSerializer, OrderCreateSerializer,UserSerializer)
 
 
 
@@ -131,6 +131,15 @@ class ProductInfoAPIView(APIView):
         })
         return  Response(serializer.data)
         
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    pagination_class = None
+     
+
+
+
+ 
 
 
 
