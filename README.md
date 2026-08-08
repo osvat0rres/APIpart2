@@ -108,7 +108,7 @@ To install rest_framework_simplejwt
 ```
 pip install djangorestframework-simplejwt
 ```
-video 25
+video 26
 
 
 
