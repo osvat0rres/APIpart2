@@ -3,13 +3,18 @@ from rest_framework import serializers
 from .models import Product, Order, OrderItem, User
 
 
+
+#This serializer wiill show you all the user and their infromation
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        #exclude = ('password',) This will exclude the password from the serializer
         fields = (
+            #'__all__',
             'username',
             'email',
-            'is_staff'
+            'is_staff',
+            'is_superuser',
         )
         
 
@@ -132,6 +137,3 @@ class ProductInfoSerializer(serializers.Serializer):
     count = serializers.IntegerField()
     max_price = serializers.DecimalField(max_digits=10, decimal_places=2)
     
-
-
-
