@@ -1,4 +1,6 @@
 from django.db.models import Max
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, generics, viewsets
 from rest_framework.decorators import api_view
@@ -38,6 +40,24 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
     #If you want an exact match just add a '=' to the item ('=name')
     search_fields = ['name','description']
     ordering_filds = ['name','price','stock']
+    
+   
+    pagination_class = PageNumberPagination
+   
+    #This code creates a paginated producst enpoint and caches each list reponse for 
+     # 15 min so repeated rrequests can be served faster
+    @method_decorator(cache_page(60 * 15, key_prefix='product_list'))
+    def list(self, request, * args, **kwargs):
+        return super().list(request, *args, **kwargs)
+    
+    def get_queryset(self): 
+        import time
+        #This will add a delay of 2 seconds to the respocne time 
+        time.sleep(2)
+        return super().get_queryset()
+        
+        
+         
     
     #This will overwrite the default setting for pagination 
     pagination_class = PageNumberPagination
@@ -136,6 +156,7 @@ class UserListView(generics.ListAPIView):
     serializer_class = UserSerializer
     pagination_class = None
      
+
 
 
 
