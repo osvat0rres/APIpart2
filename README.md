@@ -118,6 +118,10 @@ run the command to install redis
 ```
  pip install "redis[hiredis]"    
 ```
+```
+ pip inatall django-redis
+```
+
 
 
 video 27
