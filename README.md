@@ -108,7 +108,19 @@ To install rest_framework_simplejwt
 ```
 pip install djangorestframework-simplejwt
 ```
-video 26
+installing redis for caching
+install the docker first on the website
+https://www.docker.com/products/docker-sandboxes/?at_exp=DO103.B
+run the command to install redis
+```
+ docker run --name django-redis -d redis 
+```
+```
+ pip install "redis[hiredis]"    
+```
+
+
+video 27
 
 
 
