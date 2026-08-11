@@ -112,6 +112,7 @@ installing redis for caching
 install the docker first on the website
 https://www.docker.com/products/docker-sandboxes/?at_exp=DO103.B
 run the command to install redis
+This command is for you to run docker but the app has to be open
 ```
  docker run --name django-redis -d redis 
 ```
