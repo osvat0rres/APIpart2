@@ -122,10 +122,7 @@ This command is for you to run docker but the app has to be open
 ```
  pip inatall django-redis
 ```
-
-
-
-video 27
+video 28
 
 
 
