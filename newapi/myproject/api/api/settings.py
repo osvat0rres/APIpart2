@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -158,4 +159,10 @@ CACHES = {
     }
 }
 
+#This code configures how long the JWT uthentication token stays valid 
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME" : timedelta(minute= 60),
+    "REFRESH_TOKEN_LIFETIME" : timedelta(days=1),
+    
+}
 
