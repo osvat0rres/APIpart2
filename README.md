@@ -123,7 +123,7 @@ This is to install redis
 ```
  pip install django-redis
 ```
-video 28
+video 29
 
 
 
