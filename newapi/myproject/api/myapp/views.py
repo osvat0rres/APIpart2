@@ -16,12 +16,15 @@ from myapp.filters import InStockFilterBackend, OrderFilter, ProductFilter
 from myapp.models import Order, OrderItem, Product, User
 from myapp.serializers import (OrderSerializer, ProductInfoSerializer,
                                ProductSerializer, OrderCreateSerializer,UserSerializer)
-
+from rest_framework.throttling import ScopedRateThrottle
 
 
 # Create your views here.
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):
+    
+    throttle_scope = 'products'
+    throttle_classes = [ScopedRateThrottle]
     #Only products that are in stock
     #queryset = Product.objects.filter(stock__gt=0)
     #Producst that are out of stock
@@ -99,6 +102,7 @@ class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class OrderViewSet(viewsets.ModelViewSet):
+    throttle_scope = 'orders'
     #This tell the view which object to work with
     queryset = Order.objects.prefetch_related('items__product')
     #This tell DRF how to convert Order objects into JSON and how to validate incoming JSON
@@ -165,8 +169,7 @@ class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     pagination_class = None
-     
-
+    
 
 
 
