@@ -126,6 +126,7 @@ STATIC_URL = 'static/'
 
 AUTH_USER_MODEL = "myapp.User"
 
+#This sets global setting to our API
 REST_FRAMEWORK = {
     #This is for authentication with JSON web token (JWT)
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -136,7 +137,20 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 5
+    'PAGE_SIZE': 5,
+    
+    
+    #Throttle settings
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '2/minute',
+        'products': '2/minute',
+        'orders' : '4/minutes'        
+    }
+    
 }
 
 SPECTACULAR_SETTINGS = {
@@ -151,7 +165,9 @@ SPECTACULAR_SETTINGS = {
 
 CACHES = {
     "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        #If you want to uses redis and docker uncommon this     
+        #"BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://127.0.0.1:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.HerdClient",
@@ -161,8 +177,10 @@ CACHES = {
 
 #This code configures how long the JWT uthentication token stays valid 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME" : timedelta(minute= 60),
+    "ACCESS_TOKEN_LIFETIME" : timedelta(minutes= 60),
     "REFRESH_TOKEN_LIFETIME" : timedelta(days=1),
     
 }
+
+
 
