@@ -121,7 +121,7 @@ This is to install redis
  pip install "redis[hiredis]"    
 ```
 ```
- pip inatall django-redis
+ pip install django-redis
 ```
 video 28
 
