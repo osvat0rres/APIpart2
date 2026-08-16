@@ -113,6 +113,10 @@ install the docker first on the website
 https://www.docker.com/products/docker-sandboxes/?at_exp=DO103.B
 
 This command is for you to run docker but the app has to be open
+To start redis
+```
+docker run --name django-redis -d -p 6379:6379 --rm redis
+```
 ```
  docker run --name django-redis -d redis 
 ```
