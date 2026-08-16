@@ -92,7 +92,8 @@ class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     #This is used when the url parameter is different from the default 'pk'
-    #lookup_url_kwarg = 'product_id'   
+    lookup_url_kwarg = 'product_id'
+       
     def get_permissions(self):
         self.permission_classes = [AllowAny]
         if self.request.method in ['PUT','PATCH', 'DELETE']:
@@ -138,9 +139,7 @@ class OrderViewSet(viewsets.ModelViewSet):
             qs = qs.filter(user=self.request.user)
         return qs
             
-    
-
-    
+  
 
 # class UserOrderListAPIView(generics.ListAPIView):
 #     queryset = Order.objects.prefetch_related('items__product')
@@ -168,8 +167,10 @@ class ProductInfoAPIView(APIView):
 class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
     pagination_class = None
-    
+     
+
 
 
 
