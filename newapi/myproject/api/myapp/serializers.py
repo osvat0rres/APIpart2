@@ -10,9 +10,9 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         #exclude = ('password',) This will exclude the password from the serializer
         fields = (
-            #'__all__',
             'username',
             'email',
+            'password',
             'is_staff',
             'is_superuser',
         )
@@ -137,3 +137,4 @@ class ProductInfoSerializer(serializers.Serializer):
     count = serializers.IntegerField()
     max_price = serializers.DecimalField(max_digits=10, decimal_places=2)
     
+ 
