@@ -17,7 +17,7 @@ from myapp.models import Order, OrderItem, Product, User
 from myapp.serializers import (OrderSerializer, ProductInfoSerializer,
                                ProductSerializer, OrderCreateSerializer,UserSerializer)
 from rest_framework.throttling import ScopedRateThrottle
-
+from api.task import send_order_confirmation_email
 
 # Create your views here.
 
@@ -122,7 +122,8 @@ class OrderViewSet(viewsets.ModelViewSet):
             return super().list(request, *args, **kwargs)
     
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        order =  serializer.save(user=self.request.user)
+        send_order_confirmation_email(order.order_id, self.request.user.email)
     
     def get_serializer_class(self):
         #can also check for if POST: If self.request.method == 'POST'
@@ -170,6 +171,22 @@ class UserListView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     pagination_class = None
      
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
 
 
 
