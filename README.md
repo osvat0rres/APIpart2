@@ -127,7 +127,9 @@ This is to install redis
 ```
  pip install django-redis
 ```
-video 29
+install celery
+```
+pip install -U Celery
 
 
 
