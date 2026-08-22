@@ -130,6 +130,11 @@ This is to install redis
 install celery
 ```
 pip install -U Celery
+```
+This is to install celery on windows
+```
+python -m pip install celery
+```
 
 
 
