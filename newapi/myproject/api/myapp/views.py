@@ -17,7 +17,7 @@ from myapp.models import Order, OrderItem, Product, User
 from myapp.serializers import (OrderSerializer, ProductInfoSerializer,
                                ProductSerializer, OrderCreateSerializer,UserSerializer)
 from rest_framework.throttling import ScopedRateThrottle
-from api.task import send_order_confirmation_email
+from .task import send_order_confirmation_email
 
 # Create your views here.
 
@@ -121,6 +121,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     def list(self, request, * args, **kwargs):
             return super().list(request, *args, **kwargs)
     
+    #This is to send an email when a new order is made
     def perform_create(self, serializer):
         order =  serializer.save(user=self.request.user)
         send_order_confirmation_email(order.order_id, self.request.user.email)

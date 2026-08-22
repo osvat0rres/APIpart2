@@ -1,11 +1,11 @@
 import os
 
-from newapi.myproject.api.api.celery import Celery
+from celery import Celery
 
 # Set the default Django settings module for the 'celery' program.
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'drf_cource.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'drf_course.settings')
 
-app = Celery('drf_cource')
+app = Celery('drf_course')
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
