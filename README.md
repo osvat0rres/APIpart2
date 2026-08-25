@@ -136,4 +136,7 @@ This is to install celery on windows
 python -m pip install celery
 ```
 to install djoser
+```
+pip install-djoser
+```
 
